@@ -1,6 +1,6 @@
 # backtrader-test-strategies
 
-Test bitcoin trading strategies using Backtrader framework.
+Test bitcoin trading strategies using Backtrader framework (see https://backtrader.com).
 
 Current implementation contains simple MACD based strategy (see `Main.py`: `MACDStrategy` class).
 
