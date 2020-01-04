@@ -15,6 +15,13 @@ Current implementation contains simple MACD based strategy (see `Main.py`: `MACD
     ```
     pip install matplotlib
     ``` 
+    
+    Note: On Ubuntu 18 you might need:
+    ```
+    sudo apt-get install -y python-matplotlib
+    sudo apt-get install -y python3-matplotlib
+    ```
+ 
  
 ## Folders
 
