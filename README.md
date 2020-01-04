@@ -2,7 +2,7 @@
 
 Test bitcoin trading strategies using Backtrader framework
 
-## Prerequisities
+## Prerequisites
 
 - Python 3.6+: https://www.python.org/downloads/
 - Backtrader module: 
