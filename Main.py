@@ -38,7 +38,6 @@ class MACDStrategy(bt.Strategy):
         self.buyprice = None
         self.buycomm = None
 
-        self.steps_after_up_cross = 0
         self.last_macd_histo = None
 
     def notify_order(self, order):
@@ -88,6 +87,7 @@ class MACDStrategy(bt.Strategy):
         macd_going_up = False
         macd_going_down = False
 
+        grow_rate = 0
         if self.last_macd_histo is not None:
             # grow_rate = (macd_macd - self.macd_last_macd) - (macd_signal - self.macd_last_signal)
             grow_rate = self.macd.lines.histo[0] - self.last_macd_histo
@@ -98,21 +98,18 @@ class MACDStrategy(bt.Strategy):
             if (histo > 0) and (grow_rate > 20):
                 macd_going_up = True
                 macd_going_down = False
-                self.steps_after_up_cross = self.steps_after_up_cross + 1
             elif histo < 1:
                 macd_going_up = False
                 macd_going_down = True
-                self.steps_after_up_cross = 0
 
         self.macd_last_macd = macd_macd
         self.macd_last_signal = macd_signal
         self.last_macd_histo = self.macd.lines.histo[0]
 
         if macd_going_up:
-            self.log('steps_after_up_cross, %s' % self.steps_after_up_cross)
             self.log('GOING UP, grow rate: %s' % grow_rate)
         if macd_going_down:
-            self.log('GOING DOWN, grow rate: %s' % grow_rate)
+            self.log('GOING DOWN, histogram: %s, grow rate: %s' % (histo, grow_rate))
 
         # Check if an order is pending ... if yes, we cannot send a 2nd one
         if self.order:
@@ -122,7 +119,7 @@ class MACDStrategy(bt.Strategy):
         if not self.position:
 
             # Not yet ... we MIGHT BUY if ...
-            if macd_going_up and self.steps_after_up_cross > 0:
+            if macd_going_up:
                 # BUY, BUY, BUY!!! (with all possible default parameters)
                 self.log('BUY CREATE, %.2f' % (self.dataclose[0]))
 
