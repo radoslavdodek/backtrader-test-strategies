@@ -107,7 +107,7 @@ class MACDStrategy(bt.Strategy):
         self.last_macd_histo = self.macd.lines.histo[0]
 
         if macd_going_up:
-            self.log('GOING UP, grow rate: %s' % grow_rate)
+            self.log('GOING UP, histogram: %s, grow rate: %s' % (histo, grow_rate))
         if macd_going_down:
             self.log('GOING DOWN, histogram: %s, grow rate: %s' % (histo, grow_rate))
 
