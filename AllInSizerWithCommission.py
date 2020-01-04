@@ -32,7 +32,7 @@ class AllInSizerWithCommission(bt.Sizer):
         if self.p.retint:
             size = int(size)
 
-        self.log('Size: %.9f' % size)
+        self.log('Number of coins to buy/sell: %.9f' % size)
         return size
 
     def log(self, txt, dt=None):

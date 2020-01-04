@@ -124,7 +124,7 @@ class MACDStrategy(bt.Strategy):
             # Not yet ... we MIGHT BUY if ...
             if macd_going_up and self.steps_after_up_cross > 0:
                 # BUY, BUY, BUY!!! (with all possible default parameters)
-                self.log('BUY CREATE, %.2f (volume %s)' % (self.dataclose[0], self.datavolume[0]))
+                self.log('BUY CREATE, %.2f' % (self.dataclose[0]))
 
                 # Keep track of the created order to avoid a 2nd order
                 self.order = self.buy()
