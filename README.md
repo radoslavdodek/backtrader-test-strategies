@@ -11,7 +11,11 @@ Current implementation contains simple MACD based strategy (see `Main.py`: `MACD
     ```
     pip install backtrader
     ```
-  
+- Matplotlib module: 
+    ```
+    pip install matplotlib
+    ``` 
+ 
 ## Folders
 
 ### data
