@@ -1,4 +1,4 @@
-# backtrader-test-strategies
+# Backtrader Test Strategies
 
 Test bitcoin trading strategies using Backtrader framework (see https://backtrader.com).
 
