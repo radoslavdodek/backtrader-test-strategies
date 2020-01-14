@@ -19,8 +19,6 @@ class MACDStrategy(bt.Strategy):
 
         # To keep track of pending orders and buy price/commission
         self.order = None
-        self.buyprice = None
-        self.buycomm = None
 
         self.last_macd_histo = None
 
@@ -38,9 +36,6 @@ class MACDStrategy(bt.Strategy):
                     (order.executed.price,
                      order.executed.value,
                      order.executed.comm))
-
-                self.buyprice = order.executed.price
-                self.buycomm = order.executed.comm
             else:  # Sell
                 self.log('SELL EXECUTED, Price: %.2f, Cost: %.2f, Comm %.2f' %
                          (order.executed.price,
@@ -65,15 +60,13 @@ class MACDStrategy(bt.Strategy):
         self.log('MACD       , %.2f' % macd_macd)
         self.log('MACD-SIGNAL, %.2f' % macd_signal)
 
-        min_diff = 0
         macd_going_up = False
         macd_going_down = False
 
         grow_rate = 0
         if self.last_macd_histo is not None:
-            # grow_rate = (macd_macd - self.macd_last_macd) - (macd_signal - self.macd_last_signal)
-            grow_rate = self.macd.lines.histo[0] - self.last_macd_histo
             histo = self.macd.lines.histo[0]
+            grow_rate = histo - self.last_macd_histo
 
             self.log('Grow Rate,  %s' % grow_rate)
 
@@ -84,8 +77,6 @@ class MACDStrategy(bt.Strategy):
                 macd_going_up = False
                 macd_going_down = True
 
-        self.macd_last_macd = macd_macd
-        self.macd_last_signal = macd_signal
         self.last_macd_histo = self.macd.lines.histo[0]
 
         if macd_going_up:
@@ -99,7 +90,6 @@ class MACDStrategy(bt.Strategy):
 
         # Check if we are in the market
         if not self.position:
-
             # Not yet ... we MIGHT BUY if ...
             if macd_going_up:
                 # BUY, BUY, BUY!!! (with all possible default parameters)
@@ -109,7 +99,6 @@ class MACDStrategy(bt.Strategy):
                 self.order = self.buy()
 
         else:
-
             if macd_going_down:
                 # SELL, SELL, SELL!!! (with all possible default parameters)
                 self.log('SELL CREATE, %.2f' % self.dataclose[0])
