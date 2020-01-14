@@ -124,16 +124,3 @@ class MACD2(bt.indicators.MACDHisto):
     ''' MACD2 uses Simple moving average instead of Exponential one '''
     params = (('period_me1', 12), ('period_me2', 26), ('period_signal', 9),
               ('movav', MovAv.Simple),)
-
-
-class MyCSVData(bt.feeds.GenericCSVData):
-    params = (
-        ('dtformat', '%Y-%m-%d'),
-        ('datetime', 0),
-        ('open', 1),
-        ('high', 2),
-        ('low', 3),
-        ('close', 4),
-        ('volume', 5),
-        ('openinterest', -1),
-    )

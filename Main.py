@@ -7,9 +7,22 @@ import os.path  # To manage paths
 import backtrader as bt
 
 from AllInSizerWithCommission import AllInSizerWithCommission
-from MACDStrategy import MACDStrategy, MyCSVData
+from MACDStrategy import MACDStrategy
 
 COMMISSION = 0.002  # 0.2% commission
+
+class MyCSVData(bt.feeds.GenericCSVData):
+    params = (
+        ('dtformat', '%Y-%m-%d'),
+        ('datetime', 0),
+        ('open', 1),
+        ('high', 2),
+        ('low', 3),
+        ('close', 4),
+        ('volume', 5),
+        ('openinterest', -1),
+    )
+
 
 if __name__ == '__main__':
     # Create a cerebro entity
